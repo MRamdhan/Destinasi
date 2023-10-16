@@ -18,17 +18,44 @@ class AdminController extends Controller
 
         return view('homeadmin', ['destinasis' => $destinasis]);
     }
-    function tambah() {
+
+    function tambahform()
+    {
         return view('tambah');
     }
 
-    function edit()
-    {
-        return view('edit');
+    function tambah(Request $request) {
+        $validator = $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'link' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        $foto =$request->file('foto');
+        $fotoNama = time() . '.' . $foto->getClientOriginalExtension();
+        $foto->move(public_path('img'),$fotoNama);
+
+        $destinasis = new Destinasi();
+        $destinasis->foto = $fotoNama;
+        $destinasis->nama = $validator['nama'];
+        $destinasis->alamat = $validator['alamat'];
+        $destinasis->link = $validator['link'];
+        $destinasis->deskripsi = $validator['deskripsi'];
+        $destinasis->save();
+
+        return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil Ditambah');
     }
 
-    function lat() 
+    function edit($id)
     {
-        return view('lat');
+        $destinasi = Destinasi::find($id);
+        return view('edit', ['destinasi' => $destinasi]);
+    }
+    public function hapus($id) {
+        // Hapus destinasi berdasarkan ID
+        Destinasi::destroy($id);
+        return redirect()->route('admin.dashboard')->with('success', 'Destinasi berhasil dihapus');
     }
 }

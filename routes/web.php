@@ -29,6 +29,11 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 
 Route::get('/',[AdminController::class, 'home'])->name('home');
 Route::get('/admin', [AdminController::class, 'homeadmin'])->name('admin.dashboard');
-Route::get('/tambah', [AdminController::class, 'tambah']);
-Route::get('/edit', [AdminController::class, 'edit']);
+
+// Rute untuk menampilkan halaman tambah (GET)
+Route::get('/tambah', [AdminController::class, 'tambahform'])->name('tambah');
+// Rute untuk menangani permintaan tambah (POST)
+Route::post('/tambah', [AdminController::class, 'tambah']);
+Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('edit');
+Route::delete('/hapus/{id}', [AdminController::class, 'hapus'])->name('hapus');
 

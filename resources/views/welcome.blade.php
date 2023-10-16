@@ -9,10 +9,10 @@
 </head>
 <body>
     @include('template.nav')
-    @foreach ($destinasis as $destinasi) <!-- Ganti $destinasis menjadi $destinasi -->
     <div class="container mt-5">
         <div class="row">
-            <div class="col-4">
+            @foreach ($destinasis as $destinasi)
+            <div class="col-3 mx-2"> <!-- Tambahkan kelas mx-2 di sini -->
                 <div class="card">
                     <img src="{{ $destinasi->foto }}" alt="Foto">
                     <div class="card-body">
@@ -21,8 +21,8 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
-    @endforeach
 </body>
 </html>

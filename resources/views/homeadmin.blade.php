@@ -38,8 +38,12 @@
                     <td>{{ $destinasi->alamat }}</td>
                     <td><a href="{{ $destinasi->link }}">{{ $destinasi->link }}</a></td> <!-- Ganti $item->link menjadi $destinasi->link -->
                     <td>{{ $destinasi->deskripsi }}</td>
-                    <td><a href="/edit" class="btn btn-primary">Edit</a>
-                        <button class="btn btn-danger">Hapus</button></td>
+                    <td><a href="{{ route('edit', ['id' => $destinasi->id]) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('hapus', ['id' => $destinasi->id]) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" onclick="return confirm('Anda yakin ingin menghapus destinasi ini?')">Hapus</button>
+                        </form></td>
                 </tr>
                 @endforeach
             </tbody>
