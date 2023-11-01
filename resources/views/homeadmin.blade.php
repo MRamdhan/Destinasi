@@ -10,8 +10,8 @@
 <body>
     <div class="container mt-5">
         <h3>Dashboard Admin</h3>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-            @csrf <!-- Tambahkan @csrf untuk perlindungan CSRF -->
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
             <a href="/tambah" class="btn btn-success">Tambah</a>
             <button type="submit" class="btn btn-secondary">Logout</button>
         </form>
@@ -30,13 +30,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($destinasis as $destinasi) <!-- Ganti $destinasis menjadi $destinasi -->
+                @foreach ($destinasis as $destinasi) 
                 <tr>
                     <td>{{ $loop->index + 1 }}</td>
                     <td><img src="{{ $destinasi->foto }}" alt="Foto" style="width: 100px;"></td>
                     <td>{{ $destinasi->nama }}</td>
                     <td>{{ $destinasi->alamat }}</td>
-                    <td><a href="{{ $destinasi->link }}">{{ $destinasi->link }}</a></td> <!-- Ganti $item->link menjadi $destinasi->link -->
+                    <td><a href="{{ $destinasi->link }}">{{ $destinasi->link }}</a></td>
                     <td>{{ $destinasi->deskripsi }}</td>
                     <td><a href="{{ route('edit', ['id' => $destinasi->id]) }}" class="btn btn-primary">Edit</a>
                         <form action="{{ route('hapus', ['id' => $destinasi->id]) }}" method="POST" style="display: inline;">

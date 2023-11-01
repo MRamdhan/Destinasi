@@ -48,11 +48,31 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil Ditambah');
     }
 
-    function edit($id)
-    {
+    function formedit($id) {
         $destinasi = Destinasi::find($id);
         return view('edit', ['destinasi' => $destinasi]);
     }
+    
+    function edit(Request $request, $id) {
+        $destinasi = Destinasi::find($id);
+    
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $fotoNama = time() . '.' . $foto->getClientOriginalExtension();
+            $foto->move(public_path('img'), $fotoNama);
+            $destinasi->foto = $fotoNama;
+        }
+    
+        $destinasi->nama = $request->input('nama');
+        $destinasi->alamat = $request->input('alamat');
+        $destinasi->link = $request->input('link');
+        $destinasi->deskripsi = $request->input('deskripsi');
+        $destinasi->save();
+    
+        return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil diubah');
+    }
+    
+    
     public function hapus($id) {
         // Hapus destinasi berdasarkan ID
         Destinasi::destroy($id);

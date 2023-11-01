@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-    <form action="{{ route('edit', ['id' => $destinasi->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('edit', ['id' => $destinasi->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container mt-2" style="width: 50%">
             <div class="card p-4 border-2 text-black rounded-4">
                 <h4 class="mt-5" style="text-align: center"> Edit Destinasi </h4>
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
-                    <input type="file" class="form-control" value="img/rawrkrakatau.jpg">
+                    <input type="file" class="form-control" value="img/rawrkrakatau.jpg" name="foto">
                 </div>
                 <div class="mb-3">
                     <label for="nama">Nama</label>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="deskripsi">Deskripsi</label>
-                    <textarea cols="30" rows="3" class="form-control" style="resize: none">{{ $destinasi->deskripsi }}</textarea>
+                    <textarea cols="30" rows="3" class="form-control" style="resize: none" name="deskripsi">{{ $destinasi->deskripsi }}</textarea>
                 </div>
                 <div class="mt-3">
                     <button class="btn btn-success fw-bold w-100" type="submit">Edit</button>

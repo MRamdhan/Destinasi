@@ -23,17 +23,19 @@ class DatabaseSeeder extends Seeder
         // ]);
             $user = new User();
             $user->username='admin';
-            $user->email='admin@a.com';
+            $user->email='admin2@a.com';
+            $user->role='admin';
             $user->password= bcrypt('admin');
             $user->save();
 
-            $user = new Destinasi();
-            $user->foto = 'img/candi.jpg';
-            $user->nama = 'Candi Borobudur';
-            $user->alamat = 'Jl. Badrawati, Kw. Candi Borobudur, Borobudur, Kec. Borobudur, Kabupaten Magelang, Jawa Tengah';
-            $user->link = 'https://maps.app.goo.gl/NPL69xyKMHCu3PgL6';
-            $user->deskripsi = 'Candi Borobudur adalah sebuah candi Buddha yang terletak di Borobudur, Magelang, Jawa Tengah, Indonesia. Candi ini terletak kurang lebih 100 km di sebelah barat daya Semarang, 86 km di sebelah barat Surakarta, dan 40 km di sebelah barat laut Yogyakarta.';
-            $user->save();
+            $destinasi = new Destinasi();
+            $destinasi->foto = 'img/candi.jpg';
+            $destinasi->nama = 'Candi Borobudur';
+            $destinasi->alamat = 'Jl. Badrawati, Kw. Candi Borobudur, Borobudur, Kec. Borobudur, Kabupaten Magelang, Jawa Tengah';
+            $destinasi->link = 'https://maps.app.goo.gl/NPL69xyKMHCu3PgL6';
+            $destinasi->deskripsi = 'Candi Borobudur adalah sebuah candi Buddha yang terletak di Borobudur, Magelang, Jawa Tengah, Indonesia. Candi ini terletak kurang lebih 100 km di sebelah barat daya Semarang, 86 km di sebelah barat Surakarta, dan 40 km di sebelah barat laut Yogyakarta.';
+            $destinasi->user_id = $user->id;
+            $destinasi->save();
             
     }
 }
