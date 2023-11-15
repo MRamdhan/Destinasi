@@ -13,6 +13,38 @@ class AdminController extends Controller
 
         return view('welcome', ['destinasis' => $destinasis]);
     }
+
+    function formedit($id) {
+        $destinasi = Destinasi::find($id);
+        return view('edit', ['destinasi' => $destinasi]);
+    }
+
+    function edit(Request $request, $id, Destinasi $destinasi) {
+        $destinasi = Destinasi::find($id);
+        $data = $request->validate([
+            'foto' => 'file|image',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'link' => 'required',
+            'deskripsi' => 'required',
+        ]);
+        if($request->hasFile('foto'))
+        {
+            $data['foto'] =$request->foto->store('img');
+        }
+        else
+        {
+            unset($data['foto']);
+        }
+        $destinasi->update($data);
+        return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil diubah');
+    }
+    
+    public function hapus($id) {
+        // Hapus destinasi berdasarkan ID
+        Destinasi::destroy($id);
+        return redirect()->route('admin.dashboard')->with('success', 'Destinasi berhasil dihapus');
+    }
     function homeadmin() {
         $destinasis = Destinasi::all();
 
@@ -25,57 +57,24 @@ class AdminController extends Controller
     }
 
     function tambah(Request $request) {
-        $validator = $request->validate([
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
+        $request->validate([
+            'foto' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
             'link' => 'required',
             'deskripsi' => 'required',
         ]);
 
-        $foto =$request->file('foto');
-        $fotoNama = time() . '.' . $foto->getClientOriginalExtension();
-        $foto->move(public_path('img'),$fotoNama);
-
-        $destinasis = new Destinasi();
-        $destinasis->foto = $fotoNama;
-        $destinasis->nama = $validator['nama'];
-        $destinasis->alamat = $validator['alamat'];
-        $destinasis->link = $validator['link'];
-        $destinasis->deskripsi = $validator['deskripsi'];
-        $destinasis->save();
-
+        $filename = time() .'.'. $request->foto->getClientOriginalName();
+        $request->foto->move(public_path('img'),$filename);
+        Destinasi::create([
+            'foto' => 'img/'. $filename ,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'link' => $request->link,
+            'user_id'=>auth()->id(),
+            'deskripsi' => $request->deskripsi,
+        ]);
         return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil Ditambah');
-    }
-
-    function formedit($id) {
-        $destinasi = Destinasi::find($id);
-        return view('edit', ['destinasi' => $destinasi]);
-    }
-    
-    function edit(Request $request, $id) {
-        $destinasi = Destinasi::find($id);
-    
-        if ($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $fotoNama = time() . '.' . $foto->getClientOriginalExtension();
-            $foto->move(public_path('img'), $fotoNama);
-            $destinasi->foto = $fotoNama;
-        }
-    
-        $destinasi->nama = $request->input('nama');
-        $destinasi->alamat = $request->input('alamat');
-        $destinasi->link = $request->input('link');
-        $destinasi->deskripsi = $request->input('deskripsi');
-        $destinasi->save();
-    
-        return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil diubah');
-    }
-    
-    
-    public function hapus($id) {
-        // Hapus destinasi berdasarkan ID
-        Destinasi::destroy($id);
-        return redirect()->route('admin.dashboard')->with('success', 'Destinasi berhasil dihapus');
     }
 }

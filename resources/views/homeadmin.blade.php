@@ -12,8 +12,8 @@
         <h3>Dashboard Admin</h3>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <a href="/tambah" class="btn btn-success">Tambah</a>
             <button type="submit" class="btn btn-secondary">Logout</button>
+            <a href="/tambah" class="btn btn-success">Tambah</a>
         </form>
     </div>
     <div class="container mt-5">

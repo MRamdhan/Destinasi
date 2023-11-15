@@ -15,7 +15,7 @@
                 <h4 class="mt-5" style="text-align: center"> Edit Destinasi </h4>
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
-                    <input type="file" class="form-control" value="img/rawrkrakatau.jpg" name="foto">
+                    <input type="file" class="form-control" name="foto">
                 </div>
                 <div class="mb-3">
                     <label for="nama">Nama</label>

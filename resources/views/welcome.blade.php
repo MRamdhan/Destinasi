@@ -12,12 +12,13 @@
     <div class="container mt-5">
         <div class="row">
             @foreach ($destinasis as $destinasi)
-            <div class="col-3 mx-2"> <!-- Tambahkan kelas mx-2 di sini -->
-                <div class="card">
-                    <img src="{{ $destinasi->foto }}" alt="Foto">
+            <div class="col-3 mx-2">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ $destinasi->foto }}" alt="Card image cap">
                     <div class="card-body">
-                        <div class="card-title">{{ $destinasi->nama }}</div>
-                        <div class="card-text">{{ $destinasi->deskripsi }}  </div>
+                        <h5 class="card-title">{{ $destinasi->nama }}</h5>
+                        <p class="card-text">{{ $destinasi->deskripsi }}</p>
+                        <a href="#" class="btn btn-primary">Detail</a>
                     </div>
                 </div>
             </div>

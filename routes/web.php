@@ -25,12 +25,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'loginform'])->name('login');
 // // Rute untuk menangani permintaan login (POST)
 Route::post('/login', [AuthController::class, 'login']);
-
-//logout
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-//home
-Route::get('/',[AdminController::class, 'home'])->name('home');
 //admin
 Route::get('/admin', [AdminController::class, 'homeadmin'])->name('admin.dashboard');
 
@@ -44,3 +38,9 @@ Route::post('/edit/{id}', [AdminController::class, 'edit'])->name('edit');
 
 //delete
 Route::delete('/hapus/{id}', [AdminController::class, 'hapus'])->name('hapus');
+
+//logout
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//home
+Route::get('/',[AdminController::class, 'home'])->name('home');
