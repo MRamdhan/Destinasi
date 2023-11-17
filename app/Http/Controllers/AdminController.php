@@ -19,26 +19,28 @@ class AdminController extends Controller
         return view('edit', ['destinasi' => $destinasi]);
     }
 
-    function edit(Request $request, $id, Destinasi $destinasi) {
+    function edit(Request $request, $id) {
         $destinasi = Destinasi::find($id);
+    
         $data = $request->validate([
-            'foto' => 'file|image',
             'nama' => 'required',
             'alamat' => 'required',
             'link' => 'required',
             'deskripsi' => 'required',
         ]);
-        if($request->hasFile('foto'))
-        {
-            $data['foto'] =$request->foto->store('img');
+    
+        if ($request->hasFile('foto')) {
+            $image = $request->file('foto');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('img'), $imageName);
+            $data['foto'] = 'img/' . $imageName;
         }
-        else
-        {
-            unset($data['foto']);
-        }
+    
         $destinasi->update($data);
+    
         return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil diubah');
     }
+    
     
     public function hapus($id) {
         // Hapus destinasi berdasarkan ID
@@ -64,17 +66,26 @@ class AdminController extends Controller
             'link' => 'required',
             'deskripsi' => 'required',
         ]);
-
-        $filename = time() .'.'. $request->foto->getClientOriginalName();
-        $request->foto->move(public_path('img'),$filename);
+    
+        $imageName = time() . '.' . $request->foto->getClientOriginalName();
+        $request->foto->move(public_path('img'), $imageName);
+    
         Destinasi::create([
-            'foto' => 'img/'. $filename ,
+            'foto' => 'img/' . $imageName,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
             'link' => $request->link,
-            'user_id'=>auth()->id(),
+            'user_id' => auth()->id(),
             'deskripsi' => $request->deskripsi,
         ]);
+    
         return redirect()->route('admin.dashboard')->with('success', 'Destinasi Berhasil Ditambah');
+    }
+
+    public function show($id)
+    {
+        $destinasi = Destinasi::find($id);
+
+        return view('detail', compact('destinasi'));
     }
 }

@@ -36,8 +36,11 @@
                     <td><img src="{{ $destinasi->foto }}" alt="Foto" style="width: 100px;"></td>
                     <td>{{ $destinasi->nama }}</td>
                     <td>{{ $destinasi->alamat }}</td>
-                    <td><a href="{{ $destinasi->link }}">{{ $destinasi->link }}</a></td>
-                    <td>{{ $destinasi->deskripsi }}</td>
+                    <td>
+                        <a href="{{$destinasi->link }}">
+                            {{ Str::limit($destinasi->link, 20) }}
+                        </a>
+                    </td>                    <td>{{ $destinasi->deskripsi }}</td>
                     <td><a href="{{ route('edit', ['id' => $destinasi->id]) }}" class="btn btn-primary">Edit</a>
                         <form action="{{ route('hapus', ['id' => $destinasi->id]) }}" method="POST" style="display: inline;">
                             @csrf

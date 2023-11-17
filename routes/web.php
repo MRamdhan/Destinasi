@@ -44,3 +44,6 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 
 //home
 Route::get('/',[AdminController::class, 'home'])->name('home');
+
+//detail
+Route::get('/destinasi/{id}', [AdminController::class, 'show'])->name('destinasi.show');

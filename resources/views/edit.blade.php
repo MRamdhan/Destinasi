@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Edit</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
                 <h4 class="mt-5" style="text-align: center"> Edit Destinasi </h4>
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
-                    <input type="file" class="form-control" name="foto">
+                    <input type="file" name="foto" accept="image/*" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="nama">Nama</label>

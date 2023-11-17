@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Welcome</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $destinasi->nama }}</h5>
                         <p class="card-text">{{ $destinasi->deskripsi }}</p>
-                        <a href="#" class="btn btn-primary">Detail</a>
+                        <a href="{{ route('destinasi.show', ['id' => $destinasi->id]) }}" class="btn btn-primary">Detail</a>
                     </div>
                 </div>
             </div>

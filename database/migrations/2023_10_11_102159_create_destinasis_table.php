@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('foto');
             $table->string('nama');
             $table->string('alamat');
-            $table->string('link');
+            $table->text('link');
             $table->text('deskripsi');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
