@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function loginform()
     {
-        return view('auth/login');
+        return view('login');
     }
 
     function login(Request $request)
@@ -22,17 +22,17 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect()->back()->with('message', 'Invalid field');
+            return redirect()->back()->with('message', 'Data Tidak Lengkap');
         }
 
         if(!Auth::attempt($request->only(['email', 'password']))){
-            return redirect()->back()->with('message', 'Username atau Password salah!');
+            return redirect()->back()->with('message', 'Email atau Password salah!');
         }
 
         $user = User::where('email', $request->email)->first();
         $token = $user->createToken("API TOKEN")->plainTextToken;
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard')->with('status', 'Selamat Datatang:'.$user->username);
     }
 
     function logout()
@@ -40,12 +40,7 @@ class AuthController extends Controller
         if(auth()->check()){
             Auth::user()->tokens()->delete();
 
-            return redirect()->route('login');
+            return redirect()->route('login')->with('message', 'Logout Berhasil');
         }
     }
-
-    // function homeadmin()
-    // {
-    //     return view('homeadmin');
-    // }
 }

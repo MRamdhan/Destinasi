@@ -11,6 +11,8 @@
     <div class="container mt-5">
         <h3>Dashboard Admin</h3>
         <form action="{{ route('logout') }}" method="POST">
+            @include('template.sessionAuth')
+            @include('template.sessionAdmin')
             @csrf
             <button type="submit" class="btn btn-secondary">Logout</button>
             <a href="/tambah" class="btn btn-success">Tambah</a>

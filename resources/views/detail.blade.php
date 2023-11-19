@@ -10,13 +10,17 @@
 <body>
     @include('template.nav')
     <div class="container mt-5">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="{{ $destinasi->foto }}" alt="Card image cap">
+        <h1> Detail Destinasi </h1>
+        <div class="mt-3 d-flex">
+            <img src="{{asset($destinasi->foto) }}" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{ $destinasi->nama }}</h5>
                 <p class="card-text">{{ $destinasi->deskripsi }}</p>
-                <iframe src="{{ $destinasi->link }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+        </div>
+        <div class="container mt-5">
+            <h3> MAPS </h3>
+            <iframe src="{{ $destinasi->link }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </body>

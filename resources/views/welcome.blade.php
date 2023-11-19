@@ -17,7 +17,9 @@
                     <img class="card-img-top" src="{{ $destinasi->foto }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{ $destinasi->nama }}</h5>
-                        <p class="card-text">{{ $destinasi->deskripsi }}</p>
+                        <p class="card-text">
+                            {{ Str::limit($destinasi->deskripsi, '200') }}
+                        </p>
                         <a href="{{ route('destinasi.show', ['id' => $destinasi->id]) }}" class="btn btn-primary">Detail</a>
                     </div>
                 </div>
